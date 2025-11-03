@@ -6,6 +6,17 @@ export function About(props) {
   const [quote, setQuote] = React.useState('Loading...');
   const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
 
+  function onClicked() {
+    console.log("button")
+    fetch('/api/click', {
+      method: "post",     // You need to clarify what method it is.
+    }) 
+    .then(() => {
+      console.log("clicked 2");
+    });
+    console.log("end button");
+  }
+
   // We only want this to render the first time the component is created and so we provide an empty dependency list.
   React.useEffect(() => {
     const random = Math.floor(Math.random() * 1000);
@@ -54,6 +65,9 @@ export function About(props) {
           <p className='quote'>{quote}</p>
           <p className='author'>{quoteAuthor}</p>
         </div>
+
+        <button onClick={() => onClicked()}>click</button>
+
       </div>
     </main>
   );

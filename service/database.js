@@ -6,6 +6,7 @@ const client = new MongoClient(url);
 const db = client.db('simon');
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
+const clickCollection = db.collection('clicks');    // Added a collection for how many times the button was clicked.
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -38,6 +39,11 @@ async function addScore(score) {
   return scoreCollection.insertOne(score);
 }
 
+async function updateClick() {
+  console.log("clicked enter");
+  return clickCollection.insertOne({clicked : "yes"});
+}
+
 function getHighScores() {
   const query = { score: { $gt: 0, $lt: 900 } };
   const options = {
@@ -55,4 +61,5 @@ module.exports = {
   updateUser,
   addScore,
   getHighScores,
+  updateClick,
 };
